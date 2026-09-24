@@ -4,6 +4,9 @@ on:
   push:
     branches: [main]
   workflow_dispatch:
+  # Rebuild hourly so new or edited Luma events appear within the hour.
+  schedule:
+    - cron: '0 * * * *'
 
 permissions:
   contents: write

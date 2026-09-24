@@ -1,167 +1,234 @@
-import React, { useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import styled from 'styled-components';
 import { JOIN_URL } from '../constants';
 import { theme } from '../styles/theme';
+import Mark from './Mark';
+import { Button } from './ui';
 
 const HeaderContainer = styled.header`
   position: sticky;
   top: 0;
-  z-index: 1000;
-  background: rgba(12, 12, 13, 0.88);
-  backdrop-filter: blur(16px);
-  border-bottom: 1px solid ${theme.color.line};
+  z-index: 100;
+  background: ${theme.color.paper};
+  border-bottom: 1px solid ${theme.color.rule};
+`;
+
+// Reading progress: a crimson rule that fills along the header's bottom edge.
+const Progress = styled.div`
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: -1px;
+  height: 3px;
+  background: ${theme.color.crimson};
+  transform-origin: left center;
+  transform: scaleX(0);
+  will-change: transform;
 `;
 
 const Nav = styled.nav`
   max-width: ${theme.width};
   margin: 0 auto;
-  padding: 14px 24px;
+  padding: 10px ${theme.gutter};
+  min-height: 64px;
   display: flex;
   justify-content: space-between;
   align-items: center;
   gap: 16px;
 `;
 
-const Logo = styled.a`
+const Lockup = styled.a`
   display: flex;
   align-items: center;
-  gap: 10px;
-  font-family: ${theme.font.serif};
-  font-size: 1.15rem;
-  color: ${theme.color.text};
-  letter-spacing: 0.01em;
-
-  img {
-    height: 36px;
-    width: auto;
-    object-fit: contain;
-  }
+  gap: 12px;
+  color: ${theme.color.ink};
 `;
 
-const NavLinks = styled.ul<{ isOpen: boolean }>`
+const Wordmark = styled.span`
+  font-size: 13px;
+  font-weight: 800;
+  line-height: 1.05;
+  letter-spacing: -0.01em;
+  text-transform: uppercase;
+`;
+
+const NavLinks = styled.ul<{ $open: boolean }>`
   display: flex;
   align-items: center;
-  gap: 28px;
+  gap: 32px;
 
-  @media (max-width: 800px) {
-    display: ${props => (props.isOpen ? 'flex' : 'none')};
+  @media (max-width: 860px) {
+    display: ${({ $open }) => ($open ? 'flex' : 'none')};
     position: absolute;
     top: 100%;
     left: 0;
     right: 0;
     flex-direction: column;
-    align-items: flex-start;
+    align-items: stretch;
     gap: 0;
-    background: ${theme.color.bg};
-    border-bottom: 1px solid ${theme.color.line};
-    padding: 8px 24px 16px;
+    background: ${theme.color.paper};
+    border-bottom: 1px solid ${theme.color.rule};
+    padding: 8px ${theme.gutter} 20px;
   }
 `;
 
-const NavItem = styled.li`
-  @media (max-width: 800px) {
-    width: 100%;
-  }
-`;
-
-const NavLink = styled.a`
-  color: ${theme.color.muted};
-  font-size: 0.95rem;
+const NavLink = styled.a<{ $active?: boolean }>`
+  font-family: ${theme.font.mono};
+  font-size: 12px;
   font-weight: 500;
-  cursor: pointer;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: ${({ $active }) => ($active ? theme.color.crimson : theme.color.body)};
+  text-decoration: underline;
+  text-decoration-thickness: 2px;
+  text-underline-offset: 8px;
+  text-decoration-color: ${({ $active }) => ($active ? theme.color.crimson : 'transparent')};
+  transition: color ${theme.motion.hover}, text-decoration-color ${theme.motion.hover};
 
   &:hover {
-    color: ${theme.color.text};
+    color: ${theme.color.crimsonDeep};
   }
 
-  @media (max-width: 800px) {
+  @media (max-width: 860px) {
     display: block;
-    padding: 12px 0;
+    padding: 14px 0;
+    border-bottom: 1px solid ${theme.color.rule};
+    font-size: 13px;
   }
 `;
 
-const JoinLink = styled.a`
-  display: inline-flex;
-  align-items: center;
-  padding: 8px 16px;
-  background: ${theme.color.crimson};
-  color: ${theme.color.text};
-  font-size: 0.9rem;
-  font-weight: 600;
-  border-radius: 999px;
+const JoinItem = styled.li`
+  @media (max-width: 860px) {
+    margin-top: 16px;
 
-  &:hover {
-    background: ${theme.color.crimsonHover};
-  }
-
-  @media (max-width: 800px) {
-    margin-top: 8px;
+    a {
+      width: 100%;
+    }
   }
 `;
 
-const HamburgerButton = styled.button`
+const MenuButton = styled.button`
   display: none;
-  color: ${theme.color.text};
-  font-size: 22px;
-  padding: 4px;
+  width: 44px;
+  height: 44px;
+  align-items: center;
+  justify-content: center;
+  color: ${theme.color.ink};
 
-  @media (max-width: 800px) {
-    display: block;
+  @media (max-width: 860px) {
+    display: inline-flex;
   }
 `;
+
+const LINKS = [
+  { id: 'pillars', label: 'Pillars' },
+  { id: 'events', label: 'Events' },
+  { id: 'members', label: 'Members' },
+  { id: 'leadership', label: 'Leadership' },
+];
 
 const Header: React.FC = () => {
-  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+  const [open, setOpen] = useState(false);
+  const [active, setActive] = useState<string | null>(null);
+  const progress = useRef<HTMLDivElement>(null);
 
-  const goTo = (sectionId: string) => {
-    const element = document.getElementById(sectionId);
-    if (element) {
-      element.scrollIntoView({ behavior: 'smooth', block: 'start' });
-    }
-    setIsMobileMenuOpen(false);
-  };
+  // Fill the progress rule as the page scrolls.
+  useEffect(() => {
+    let frame = 0;
+    const update = () => {
+      frame = 0;
+      const max = document.documentElement.scrollHeight - window.innerHeight;
+      const ratio = max > 0 ? Math.min(1, window.scrollY / max) : 0;
+      if (progress.current) progress.current.style.transform = `scaleX(${ratio})`;
+    };
+    const onScroll = () => {
+      if (!frame) frame = window.requestAnimationFrame(update);
+    };
+    update();
+    window.addEventListener('scroll', onScroll, { passive: true });
+    window.addEventListener('resize', onScroll);
+    return () => {
+      window.removeEventListener('scroll', onScroll);
+      window.removeEventListener('resize', onScroll);
+      window.cancelAnimationFrame(frame);
+    };
+  }, []);
+
+  // Highlight the nav link for the section in the middle of the screen.
+  useEffect(() => {
+    if (!('IntersectionObserver' in window)) return;
+    const io = new IntersectionObserver(
+      entries => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting) setActive(entry.target.id);
+        });
+      },
+      { rootMargin: '-45% 0px -50% 0px' },
+    );
+    const top = document.getElementById('top');
+    if (top) io.observe(top);
+    LINKS.forEach(link => {
+      const el = document.getElementById(link.id);
+      if (el) io.observe(el);
+    });
+    return () => io.disconnect();
+  }, []);
+
+  useEffect(() => {
+    if (!open) return;
+    const onKey = (e: KeyboardEvent) => e.key === 'Escape' && setOpen(false);
+    window.addEventListener('keydown', onKey);
+    return () => window.removeEventListener('keydown', onKey);
+  }, [open]);
 
   return (
     <HeaderContainer>
-      <Nav>
-        <Logo href="#top" onClick={() => goTo('top')}>
-          <img
-            src={`${process.env.PUBLIC_URL}/adtc/adtc_white_logo_only.png`}
-            alt="Automation & Deep Tech Club"
-          />
-          HBS ADTC
-        </Logo>
+      <Nav aria-label="Main">
+        <Lockup href="#top" aria-label="Automation & Deep Tech Club, back to top" onClick={() => setOpen(false)}>
+          <Mark size={38} variant="simple" color={theme.color.crimson} />
+          <Wordmark>
+            Automation &amp;
+            <br />
+            Deep Tech Club
+          </Wordmark>
+        </Lockup>
 
-        <HamburgerButton
-          onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
-          aria-label="Toggle menu"
-          aria-expanded={isMobileMenuOpen}
+        <MenuButton
+          onClick={() => setOpen(o => !o)}
+          aria-label={open ? 'Close menu' : 'Open menu'}
+          aria-expanded={open}
+          aria-controls="site-menu"
         >
-          {isMobileMenuOpen ? '✕' : '☰'}
-        </HamburgerButton>
+          <svg width="22" height="22" viewBox="0 0 22 22" aria-hidden="true">
+            {open ? (
+              <path d="M4 4l14 14M18 4 4 18" stroke="currentColor" strokeWidth="2" />
+            ) : (
+              <path d="M2 6h18M2 11h18M2 16h18" stroke="currentColor" strokeWidth="2" />
+            )}
+          </svg>
+        </MenuButton>
 
-        <NavLinks isOpen={isMobileMenuOpen}>
-          <NavItem>
-            <NavLink onClick={() => goTo('about')}>About</NavLink>
-          </NavItem>
-          <NavItem>
-            <NavLink onClick={() => goTo('events')}>Events</NavLink>
-          </NavItem>
-          <NavItem>
-            <NavLink onClick={() => goTo('leadership')}>Leadership</NavLink>
-          </NavItem>
-          <NavItem>
-            <JoinLink
-              href={JOIN_URL}
-              target="_blank"
-              rel="noopener noreferrer"
-              onClick={() => setIsMobileMenuOpen(false)}
-            >
-              Join
-            </JoinLink>
-          </NavItem>
+        <NavLinks id="site-menu" $open={open}>
+          {LINKS.map(link => (
+            <li key={link.id}>
+              <NavLink
+                href={`#${link.id}`}
+                $active={active === link.id}
+                aria-current={active === link.id ? 'true' : undefined}
+                onClick={() => setOpen(false)}
+              >
+                {link.label}
+              </NavLink>
+            </li>
+          ))}
+          <JoinItem>
+            <Button href={JOIN_URL} target="_blank" rel="noopener noreferrer" style={{ minHeight: 40 }}>
+              Join the club
+            </Button>
+          </JoinItem>
         </NavLinks>
       </Nav>
+      <Progress ref={progress} aria-hidden="true" />
     </HeaderContainer>
   );
 };

@@ -11,19 +11,25 @@ const GlobalStyles = createGlobalStyle`
 
   html {
     scroll-behavior: smooth;
+    scroll-padding-top: 72px;
+    -webkit-text-size-adjust: 100%;
   }
 
   body {
     font-family: ${theme.font.sans};
-    background: ${theme.color.bg};
-    color: ${theme.color.text};
+    font-weight: 500;
+    font-size: 16px;
+    background: ${theme.color.paper};
+    color: ${theme.color.body};
     line-height: 1.6;
     overflow-x: hidden;
+    -webkit-font-smoothing: antialiased;
+    font-variant-numeric: tabular-nums;
   }
 
   ::selection {
-    background: rgba(165, 28, 48, 0.35);
-    color: ${theme.color.text};
+    background: ${theme.color.crimson};
+    color: ${theme.color.white};
   }
 
   :focus-visible {
@@ -32,9 +38,14 @@ const GlobalStyles = createGlobalStyle`
   }
 
   h1, h2, h3, h4 {
-    font-family: ${theme.font.serif};
-    font-weight: 400;
-    line-height: 1.15;
+    color: ${theme.color.ink};
+    font-weight: 700;
+    line-height: 1.1;
+    text-wrap: balance;
+  }
+
+  p {
+    text-wrap: pretty;
   }
 
   a {
@@ -46,7 +57,8 @@ const GlobalStyles = createGlobalStyle`
     border: none;
     background: none;
     cursor: pointer;
-    font-family: inherit;
+    font: inherit;
+    color: inherit;
   }
 
   ul, ol {
@@ -54,8 +66,32 @@ const GlobalStyles = createGlobalStyle`
   }
 
   img {
+    display: block;
     max-width: 100%;
     height: auto;
+  }
+
+  ::-webkit-scrollbar {
+    width: 10px;
+    height: 10px;
+  }
+
+  ::-webkit-scrollbar-track {
+    background: ${theme.color.paper};
+  }
+
+  ::-webkit-scrollbar-thumb {
+    background: ${theme.color.silver};
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    html {
+      scroll-behavior: auto;
+    }
+
+    *, *::before, *::after {
+      transition-duration: 0ms !important;
+    }
   }
 `;
 

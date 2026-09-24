@@ -1,0 +1,60 @@
+{
+  "syncedAt": "2026-09-24T00:56:40.869Z",
+  "events": [
+    {
+      "id": "evt-s9Sb02pBm9CGmfD",
+      "name": "Thinking Like a Deep Tech VC in 2.5 hours (Space Limited)",
+      "url": "https://luma.com/cyw25l8u",
+      "startAt": "2026-02-24T21:00:00.000Z",
+      "endAt": "2026-02-24T23:30:00.000Z",
+      "timezone": "America/New_York",
+      "location": "Aldrich Hall",
+      "cover": "https://images.lumacdn.com/event-covers/9q/073a61bd-8999-46b5-a806-73d20b443c54.jpg",
+      "guests": 64
+    },
+    {
+      "id": "evt-1XuvRV88fn6gd7d",
+      "name": "What It Takes to Build a B2B Robotics AI Company",
+      "url": "https://luma.com/mk5us2e8",
+      "startAt": "2026-03-11T22:15:00.000Z",
+      "endAt": "2026-03-11T23:15:00.000Z",
+      "timezone": "America/New_York",
+      "location": "Aldrich Hall, Room 210",
+      "cover": "https://images.lumacdn.com/event-covers/qb/f3d2c744-0d46-4236-9a78-ab03d817a70f.jpg",
+      "guests": 73
+    },
+    {
+      "id": "evt-pUyW1EsYd0HAcZt",
+      "name": "White Space in the Robotics Industry (CRABI, Xfund)",
+      "url": "https://luma.com/y8gbdeak",
+      "startAt": "2026-10-06T23:00:00.000Z",
+      "endAt": "2026-10-07T00:30:00.000Z",
+      "timezone": "America/New_York",
+      "location": "Aldrich 008",
+      "cover": "https://images.lumacdn.com/uploads/aw/a3be3282-8998-42bd-ba47-6245190fcffa.png",
+      "guests": 21
+    },
+    {
+      "id": "evt-b410SiBZJJUlqTK",
+      "name": "Physical AI in the Research Lab",
+      "url": "https://luma.com/b80jmaks",
+      "startAt": "2026-10-13T19:30:00.000Z",
+      "endAt": "2026-10-13T20:30:00.000Z",
+      "timezone": "America/New_York",
+      "location": "Hawes Hall",
+      "cover": "https://images.lumacdn.com/uploads/7g/23ab86b8-526e-4652-953e-1c3cec0ab8ef.png",
+      "guests": 57
+    },
+    {
+      "id": "evt-VEOvWo3FzrEaPUJ",
+      "name": "Physical AI: Robots and Embodied AI Are Reshaping American Industry",
+      "url": "https://luma.com/f0gido8d",
+      "startAt": "2026-10-14T21:30:00.000Z",
+      "endAt": "2026-10-14T23:00:00.000Z",
+      "timezone": "America/New_York",
+      "location": "Aldrich Hall",
+      "cover": "https://images.lumacdn.com/uploads/4i/3dfee43b-c175-42c6-972d-4e4309e4c614.png",
+      "guests": 0
+    }
+  ]
+}
