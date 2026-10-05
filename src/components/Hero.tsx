@@ -53,20 +53,26 @@ const Actions = styled.div`
 
 /* Pillar dial: the mark as the page's signature control. */
 
+// The caption box is wider than the mark and has a fixed height, so a long
+// pillar name never wraps and never pushes the layout around.
 const Dial = styled.div`
   justify-self: center;
   width: 100%;
-  max-width: 380px;
-  padding: clamp(8px, 2vw, 20px);
+  max-width: 480px;
 
   svg {
     display: block;
     width: 100%;
+    max-width: 360px;
     height: auto;
+    margin: 0 auto;
+    padding: clamp(8px, 2vw, 20px);
   }
 
   @media (max-width: 960px) {
-    max-width: 300px;
+    svg {
+      max-width: 280px;
+    }
   }
 `;
 
@@ -76,13 +82,15 @@ const fadeIn = keyframes`
 `;
 
 const Caption = styled.div`
-  margin-top: 20px;
-  min-height: 80px;
+  margin-top: 12px;
+  height: 128px;
+  overflow: hidden;
   text-align: center;
   animation: ${fadeIn} 180ms ease-out;
 
   h2 {
-    font-size: clamp(1.6rem, 3vw, 2.1rem);
+    font-size: clamp(1.4rem, 2.6vw, 2rem);
+    white-space: nowrap;
     font-weight: 800;
     letter-spacing: -0.03em;
     line-height: 1;

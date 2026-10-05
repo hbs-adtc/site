@@ -59,6 +59,14 @@ const ARCHIVE: ClubEvent[] = [
   { id: 'mixer-nov-25', name: 'Fall mixer', startAt: '2025-11-13T23:30:00Z', location: 'Hamilton Hall Lounge', format: 'Club mixer' },
   { id: 'kass-25', name: 'Conversation with Zack Kass, former OpenAI executive', startAt: '2025-11-17T21:00:00Z', location: 'Aldrich 207', format: 'Conversation' },
   { id: 'rolodex-26', name: 'Rolodex Night', startAt: '2026-09-16T22:00:00Z', location: 'Aldrich 009', format: 'Members only' },
+  {
+    id: 'blue-origin-26',
+    name: 'Blue Origin AMA & Networking, with the Aerospace & Defense Club',
+    startAt: '2026-09-23T20:00:00Z',
+    location: 'Hawes 202',
+    format: 'Members only',
+    cover: `${process.env.PUBLIC_URL}/events/blue-origin-ama.jpg`,
+  },
 ];
 
 const fromLuma: ClubEvent[] = (luma.events as LumaEvent[]).map(e => ({
