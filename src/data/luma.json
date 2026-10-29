@@ -1,5 +1,5 @@
 {
-  "syncedAt": "2026-09-24T02:25:00.340Z",
+  "syncedAt": "2026-10-29T18:16:58.935Z",
   "events": [
     {
       "id": "evt-s9Sb02pBm9CGmfD",
@@ -32,7 +32,7 @@
       "timezone": "America/New_York",
       "location": "Aldrich 008",
       "cover": "https://images.lumacdn.com/uploads/aw/a3be3282-8998-42bd-ba47-6245190fcffa.png",
-      "guests": 21
+      "guests": 104
     },
     {
       "id": "evt-b410SiBZJJUlqTK",
@@ -43,7 +43,7 @@
       "timezone": "America/New_York",
       "location": "Hawes Hall",
       "cover": "https://images.lumacdn.com/uploads/7g/23ab86b8-526e-4652-953e-1c3cec0ab8ef.png",
-      "guests": 57
+      "guests": 106
     },
     {
       "id": "evt-VEOvWo3FzrEaPUJ",
@@ -52,9 +52,31 @@
       "startAt": "2026-10-14T21:30:00.000Z",
       "endAt": "2026-10-14T23:00:00.000Z",
       "timezone": "America/New_York",
-      "location": "Aldrich Hall",
-      "cover": "https://images.lumacdn.com/uploads/6f/4b407b3e-f71a-4d93-aa3f-10605007e9fb.jpg",
-      "guests": 0
+      "location": "Harvard John A. Paulson School Of Engineering And Applied Sciences",
+      "cover": "https://images.lumacdn.com/uploads/x0/8a29ff18-c6db-40d8-af09-8da461a5870d.png",
+      "guests": 334
+    },
+    {
+      "id": "evt-BlXvUxJCYbI8sB1",
+      "name": "Deep Tech VC: A Reverse Pitch on Critical Infrastructure",
+      "url": "https://luma.com/qwkzn9wk",
+      "startAt": "2026-10-21T19:30:00.000Z",
+      "endAt": "2026-10-21T20:30:00.000Z",
+      "timezone": "America/New_York",
+      "location": null,
+      "cover": "https://images.lumacdn.com/uploads/a3/96532667-15f3-4aba-b703-3695d99137da.png",
+      "guests": 124
+    },
+    {
+      "id": "evt-pPcP2xD8Xg9tD2H",
+      "name": "Investing in Atoms: An Evening with Prelude Ventures",
+      "url": "https://luma.com/i5kk1mlf",
+      "startAt": "2026-10-26T22:00:00.000Z",
+      "endAt": "2026-10-27T00:00:00.000Z",
+      "timezone": "America/New_York",
+      "location": "Daedalus Restaurant",
+      "cover": "https://images.lumacdn.com/uploads/lz/dd3c4afd-0b05-465d-b850-fbf4aa55db55.jpg",
+      "guests": 27
     }
   ]
 }
