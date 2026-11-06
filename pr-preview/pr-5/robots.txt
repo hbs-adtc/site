@@ -1,0 +1,20 @@
+User-agent: *
+Allow: /
+
+# Sitemap location
+Sitemap: https://www.automation-and-deep-tech-hbs-club.com/sitemap.xml
+
+# Common crawl delay (optional - adjust as needed)
+Crawl-delay: 1
+
+# Disallow crawling of common React build files
+Disallow: /static/js/
+Disallow: /static/css/
+Disallow: /static/media/
+
+# Allow important static assets
+Allow: /static/media/*.jpg
+Allow: /static/media/*.png
+Allow: /static/media/*.svg
+Allow: /manifest.json
+Allow: /favicon.ico
