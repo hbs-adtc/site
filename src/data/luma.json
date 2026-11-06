@@ -1,5 +1,5 @@
 {
-  "syncedAt": "2026-10-29T18:16:58.935Z",
+  "syncedAt": "2026-11-06T03:31:27.476Z",
   "events": [
     {
       "id": "evt-s9Sb02pBm9CGmfD",
@@ -77,6 +77,28 @@
       "location": "Daedalus Restaurant",
       "cover": "https://images.lumacdn.com/uploads/lz/dd3c4afd-0b05-465d-b850-fbf4aa55db55.jpg",
       "guests": 27
+    },
+    {
+      "id": "evt-TYhYTjyNssJqC76",
+      "name": "OURA Fireside Chat: Deep Tech for the Consumer",
+      "url": "https://luma.com/nmqqs9od",
+      "startAt": "2026-10-30T21:00:00.000Z",
+      "endAt": "2026-10-30T22:00:00.000Z",
+      "timezone": "America/New_York",
+      "location": "Aldrich 210",
+      "cover": "https://images.lumacdn.com/uploads/i1/1984c136-2403-4d86-bf1f-5aca04ba4fbd.png",
+      "guests": 21
+    },
+    {
+      "id": "evt-7AtohWEEzGIVHUz",
+      "name": "State of Deep Tech VC",
+      "url": "https://luma.com/dijktifg",
+      "startAt": "2026-11-12T22:00:00.000Z",
+      "endAt": "2026-11-12T23:00:00.000Z",
+      "timezone": "America/New_York",
+      "location": "Aldrich Hall",
+      "cover": "https://images.lumacdn.com/uploads/v4/aa51102d-7de7-4f2f-ac9d-d764b2a8ec65.png",
+      "guests": 121
     }
   ]
 }
