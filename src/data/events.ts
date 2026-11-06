@@ -67,6 +67,17 @@ const ARCHIVE: ClubEvent[] = [
     format: 'Members only',
     cover: `${process.env.PUBLIC_URL}/events/blue-origin-ama.jpg`,
   },
+  // Listed on a partner's Luma calendar, so the sync doesn't pick it up.
+  {
+    id: 'harvard-mit-mixer-26',
+    name: 'Harvard-MIT Deep Tech Mixer',
+    startAt: '2026-11-04T23:30:00Z',
+    location: "Flat Top Johnny's, Kendall Square",
+    format: 'Mixer',
+    url: 'https://luma.com/dyh6nzy5',
+    cover: 'https://images.lumacdn.com/uploads/ne/5dd4834c-7f39-4b56-b605-92f518398ed2.png',
+    guests: 102,
+  },
 ];
 
 const fromLuma: ClubEvent[] = (luma.events as LumaEvent[]).map(e => ({
