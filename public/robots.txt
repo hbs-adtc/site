@@ -18,3 +18,6 @@ Allow: /static/media/*.png
 Allow: /static/media/*.svg
 Allow: /manifest.json
 Allow: /favicon.ico
+
+# Members-only opportunities page
+Disallow: /opportunities/
