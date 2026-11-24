@@ -1,13 +1,14 @@
 #!/usr/bin/env node
 // Builds the site icons from the club mark (src/components/Mark.tsx, 'simple'
-// variant, every node lit). Run: node scripts/make-icons.mjs
+// variant, all crimson as in the site header). Run: node scripts/make-icons.mjs
 // Writes public/favicon.svg and the PNG/ICO sizes, rendered with headless Chrome.
 import { writeFileSync, readFileSync, mkdtempSync, rmSync } from 'node:fs';
 import { execFileSync } from 'node:child_process';
 import { tmpdir } from 'node:os';
 import { join } from 'node:path';
 
-const INK = '#2B2B2B', CRIMSON = '#A51C30', PAPER = '#F4F2EF';
+const INK = '#A51C30' // body color: crimson, matching the header mark
+const CRIMSON = '#A51C30', PAPER = '#F4F2EF';
 const NODES = [[60, 8], [105, 34], [105, 86], [60, 112], [15, 86], [15, 34]];
 const SPOKES = [0, 60, 120, 180, 240, 300];
 
@@ -19,13 +20,8 @@ const shapes = body => [
   ...NODES.map(([x, y]) => `<circle cx="${x}" cy="${y}" r="6.5" fill="${CRIMSON}"/>`),
 ].join('');
 
-// Browser-tab icon: transparent, and the ink body turns paper in dark tab bars.
-const favicon = `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 120 120">
-<style>.f{fill:${INK}}.s{stroke:${INK}}@media (prefers-color-scheme:dark){.f{fill:${PAPER}}.s{stroke:${PAPER}}}</style>
-${shapes('INK')
-  .replace(/fill="INK"/g, 'class="f"')
-  .replace('fill="none" stroke="INK"', 'class="s" fill="none"')}
-</svg>
+// Browser-tab icon: transparent; crimson reads on both light and dark tab bars.
+const favicon = `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 120 120">${shapes(INK)}</svg>
 `;
 writeFileSync('public/favicon.svg', favicon);
 
