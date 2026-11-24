@@ -3,29 +3,26 @@
   "name": "HBS Automation & Deep Tech Club",
   "icons": [
     {
-      "src": "adtc/adtc_logo_only.png",
-      "sizes": "572x572",
-      "type": "image/png"
+      "src": "favicon.svg",
+      "type": "image/svg+xml",
+      "sizes": "any"
     },
     {
-      "src": "adtc/adtc_logo_only.png",
+      "src": "web-app-manifest-192x192.png",
       "type": "image/png",
-      "sizes": "572x572"
+      "sizes": "192x192",
+      "purpose": "any maskable"
     },
     {
-      "src": "adtc/adtc_logo_only.png",
+      "src": "web-app-manifest-512x512.png",
       "type": "image/png",
-      "sizes": "572x572"
-    },
-    {
-      "src": "adtc/adtc_logo_only.png",
-      "type": "image/png",
-      "sizes": "572x572"
+      "sizes": "512x512",
+      "purpose": "any maskable"
     }
   ],
   "start_url": ".",
   "display": "standalone",
   "theme_color": "#A51C30",
-  "background_color": "#000000",
+  "background_color": "#F4F2EF",
   "description": "Harvard Business School Automation & Deep Tech Club - Exploring AI, robotics, and emerging technologies"
 }
