@@ -13,6 +13,10 @@ permissions:
 jobs:
   preview:
     runs-on: ubuntu-latest
+    env:
+      # Password-protected opportunities page: skipped until both secrets are set.
+      OPP_DEPLOY_KEY: ${{ secrets.OPP_DEPLOY_KEY }}
+      DASHBOARD_PASSWORD: ${{ secrets.DASHBOARD_PASSWORD }}
     if: github.event.pull_request.head.repo.full_name == github.repository
     steps:
       - name: Checkout
@@ -33,6 +37,20 @@ jobs:
         run: npm run build
         env:
           PUBLIC_URL: /site/pr-preview/pr-${{ github.event.number }}
+
+      - name: Fetch opportunity dashboard
+        if: env.OPP_DEPLOY_KEY != '' && env.DASHBOARD_PASSWORD != '' && github.event.action != 'closed'
+        uses: actions/checkout@v4
+        with:
+          repository: hbs-adtc/opportunity-search
+          ssh-key: ${{ secrets.OPP_DEPLOY_KEY }}
+          path: _opp
+          sparse-checkout: repository/dashboard.html
+          sparse-checkout-cone-mode: false
+
+      - name: Encrypt opportunity dashboard
+        if: env.OPP_DEPLOY_KEY != '' && env.DASHBOARD_PASSWORD != '' && github.event.action != 'closed'
+        run: node scripts/encrypt-dashboard.mjs _opp/repository/dashboard.html build/opportunities/index.html
 
       - name: Add SPA fallback
         if: github.event.action != 'closed'

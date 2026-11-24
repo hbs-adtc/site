@@ -221,6 +221,12 @@ const Header: React.FC = () => {
               </NavLink>
             </li>
           ))}
+          <li>
+            {/* Separate static page (password-protected), outside the single-page app */}
+            <NavLink href={`${process.env.PUBLIC_URL}/opportunities/`} $active={false} onClick={() => setOpen(false)}>
+              Opportunities
+            </NavLink>
+          </li>
           <JoinItem>
             <Button href={JOIN_URL} target="_blank" rel="noopener noreferrer" style={{ minHeight: 40 }}>
               Join the club
